@@ -29,13 +29,13 @@ trait JsonApiResponseTrait
     }
 
     /**
-     * @param string $json
+     * @param string $message
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function errorResponse($json)
+    protected function errorResponse($message)
     {
-        $error = new Error('Bad Request', json_decode($json));
+        $error = new Error('Bad Request', $message);
 
         return $this->createResponse(new BadRequest(new ErrorBag([$error])));
     }
@@ -61,37 +61,39 @@ trait JsonApiResponseTrait
     }
 
     /**
-     * @param string $json
+     * @param string $message
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function resourceNotFoundResponse($json)
+    protected function resourceNotFoundResponse($message)
     {
-        return $this->createResponse(new ResourceNotFound($json));
+    	$error = new Error('Not Found', $message);
+    	
+        return $this->createResponse(new ResourceNotFound(new ErrorBag([$error])));
     }
 
     /**
-     * @param string $json
+     * @param string $message
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function resourcePatchErrorResponse($json)
+    protected function resourcePatchErrorResponse($message)
     {
-        $error = new Error('Unprocessable Entity', json_decode($json));
+    	$error = new Error('Unprocessable Entity', $message);    	 
 
-        return $this->createResponse(new UnprocessableEntity([$error]));
+        return $this->createResponse(new UnprocessableEntity(new ErrorBag([$error])));
     }
 
     /**
-     * @param string $json
+     * @param string $message
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function resourcePostErrorResponse($json)
+    protected function resourcePostErrorResponse($message)
     {
-        $error = new Error('Unprocessable Entity', json_decode($json));
+        $error = new Error('Unprocessable Entity', $message);
 
-        return $this->createResponse(new UnprocessableEntity([$error]));
+        return $this->createResponse(new UnprocessableEntity(new ErrorBag([$error])));
     }
 
     /**
@@ -125,15 +127,15 @@ trait JsonApiResponseTrait
     }
 
     /**
-     * @param string $json
+     * @param string $message
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function unsupportedActionResponse($json)
+    protected function unsupportedActionResponse($message)
     {
-        $error = new Error('Unsupported Action', json_decode($json));
+        $error = new Error('Unsupported Action', $message);
 
-        return $this->createResponse(new UnsupportedAction([$error]));
+        return $this->createResponse(new UnsupportedAction(new ErrorBag([$error])));
     }
 
     /**
