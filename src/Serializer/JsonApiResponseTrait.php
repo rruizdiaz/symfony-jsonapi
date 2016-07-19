@@ -67,8 +67,8 @@ trait JsonApiResponseTrait
      */
     protected function resourceNotFoundResponse($message)
     {
-    	$error = new Error('Not Found', $message);
-    	
+        $error = new Error('Not Found', $message);
+
         return $this->createResponse(new ResourceNotFound(new ErrorBag([$error])));
     }
 
@@ -79,7 +79,7 @@ trait JsonApiResponseTrait
      */
     protected function resourcePatchErrorResponse($message)
     {
-    	$error = new Error('Unprocessable Entity', $message);    	 
+        $error = new Error('Unprocessable Entity', $message);
 
         return $this->createResponse(new UnprocessableEntity(new ErrorBag([$error])));
     }
